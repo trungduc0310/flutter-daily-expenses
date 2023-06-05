@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ItemDailyHome extends StatelessWidget {
-  const ItemDailyHome({
-    super.key,
-  });
+  final Function onEditItem;
+
+  const ItemDailyHome({super.key, required this.onEditItem});
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +12,25 @@ class ItemDailyHome extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   "Ngày: dd/MM/yyyy",
                   style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.black, fontSize: 16),
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      fontSize: 16),
                 ),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.edit,size: 24,))
+                IconButton(
+                    onPressed: () {
+                      onEditItem();
+                    },
+                    icon: const Icon(
+                      Icons.edit,
+                      size: 24,
+                    ))
               ],
             ),
           ),
@@ -33,7 +42,12 @@ class ItemDailyHome extends StatelessWidget {
             shrinkWrap: true,
             physics: const ScrollPhysics(),
           ),
-          const Divider(height: 2, color: Colors.blueGrey, indent: 24, endIndent: 24,),
+          const Divider(
+            height: 2,
+            color: Colors.blueGrey,
+            indent: 24,
+            endIndent: 24,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
             child: Row(

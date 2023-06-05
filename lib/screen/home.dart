@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: ListView.builder(itemBuilder: (BuildContext context, int index){
-          return const ItemDailyHome();
+          return ItemDailyHome(onEditItem: _onItemEdit);
         },itemCount: 10,),
       ),
       floatingActionButton: FloatingActionButton(
@@ -55,6 +55,10 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.add)
       ),
     );
+  }
+
+  void _onItemEdit(){
+    Navigator.pushNamed(context, Strings.screenEdit);
   }
 }
 

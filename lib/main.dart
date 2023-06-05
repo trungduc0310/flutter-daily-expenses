@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/screen/add_daily_note.dart';
+import 'package:my_todo_app/screen/edit_daily_note.dart';
 import 'package:my_todo_app/screen/home.dart';
 import 'package:my_todo_app/source/string.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes:{
         Strings.screenHome: (context) => const HomePage(),
         Strings.screenAdd: (context) => const AddDailyNotePage(),
+        Strings.screenEdit: (context) => const EditDailyNotePage(),
       },
     );
   }
