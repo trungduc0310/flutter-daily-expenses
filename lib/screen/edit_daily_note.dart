@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_todo_app/widget/item_edit_daily.dart';
 
 import '../source/string.dart';
 import '../utils/calendar_utils.dart';
 
-class EditDailyNotePage extends StatefulWidget{
+class EditDailyNotePage extends StatefulWidget {
   const EditDailyNotePage({super.key});
 
   @override
@@ -12,7 +13,7 @@ class EditDailyNotePage extends StatefulWidget{
   }
 }
 
-class _EditDailyNoteState extends State<EditDailyNotePage>{
+class _EditDailyNoteState extends State<EditDailyNotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,16 +25,18 @@ class _EditDailyNoteState extends State<EditDailyNotePage>{
                 child: TextButton(
                     onPressed: () {
                       CalendarUtils.showDatePickerCallback(context,
-                              (datePicked) {
-                            //TODO get date selected
-                          });
+                          (datePicked) {
+                        //TODO get date selected
+                      });
                     },
                     child: const Text("Ngày: dd/MM/yyyy"))),
             ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  return Text(index.toString());
+                  return ItemEditDaily(
+                    onItemDailyMoney: _onEditItemDailyMoney,
+                  );
                 },
-                itemCount: 1,
+                itemCount: 6,
                 shrinkWrap: true,
                 physics: const ScrollPhysics()),
             Container(
@@ -52,5 +55,44 @@ class _EditDailyNoteState extends State<EditDailyNotePage>{
         ),
       ),
     );
+  }
+
+  void _onEditItemDailyMoney(String amount, String money) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: Strings.textHintContentMoney),
+                      textInputAction: TextInputAction.next,
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: Strings.textHintValueMoney),
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.done,
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: const Text(Strings.textButtonSaveEditDaily))
+                ],
+              ),
+            );
+          });
+        });
   }
 }

@@ -14,7 +14,12 @@ class Strings {
   //Add daily screen
   static const String textButtonSaveDaily = "Lưu ngày";
 
+  //Edit daily screen
+  static const String textButtonSaveEditDaily = "Lưu";
+
+  //Common
   static const String textHintContentMoney = "Khoản tiền";
   static const String textHintValueMoney = "Số tiền";
+
 
 }

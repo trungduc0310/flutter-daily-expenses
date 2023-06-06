@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class CalendarUtils {
   static Future<void> showDatePickerCallback(
-      BuildContext context, Function(DateTime) onSelectedDate) async {
+      BuildContext context, Function(DateTime) onSelectedDate, [DateTime? initDate]) async {
     var datePicked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: initDate ?? DateTime.now(),
       firstDate: DateTime.utc(1969),
       lastDate: DateTime.now(),
       initialEntryMode: DatePickerEntryMode.calendarOnly,
