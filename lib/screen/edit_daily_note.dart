@@ -3,6 +3,7 @@ import 'package:my_todo_app/widget/item_edit_daily.dart';
 
 import '../source/string.dart';
 import '../utils/calendar_utils.dart';
+import '../widget/dialog_edit_item.dart';
 
 class EditDailyNotePage extends StatefulWidget {
   const EditDailyNotePage({super.key});
@@ -63,36 +64,14 @@ class _EditDailyNoteState extends State<EditDailyNotePage> {
         builder: (BuildContext context) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
-            return AlertDialog(
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: Strings.textHintContentMoney),
-                      textInputAction: TextInputAction.next,
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: Strings.textHintValueMoney),
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.done,
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: const Text(Strings.textButtonSaveEditDaily))
-                ],
-              ),
+            return DialogEditItemMoneyWidget(
+              contentMoney: amount,
+              valueMoney: money,
+              onSaveNewMoney: _onSaveNewDailyMoney,
             );
           });
         });
   }
+
+  void _onSaveNewDailyMoney(String amount, String money) {}
 }
