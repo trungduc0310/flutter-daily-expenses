@@ -1,9 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:my_todo_app/bloc/home_bloc.dart';
 import 'package:my_todo_app/source/string.dart';
 import 'package:my_todo_app/widget/item_daily_home.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final _bloc = HomeBloc();
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -50,7 +55,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, Strings.screenAdd);
+          Navigator.pushNamed(context, Strings.screenAdd).then((value){
+          });
         },
         child: const Icon(Icons.add)
       ),
@@ -58,7 +64,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onItemEdit(){
-    Navigator.pushNamed(context, Strings.screenEdit);
+    Navigator.pushNamed(context, Strings.screenEdit).then((value) {
+      print("edit sc back to homepage $value");
+    });
   }
 }
 

@@ -15,7 +15,6 @@ class AddDailyNotePage extends StatefulWidget {
 }
 
 class _AddDailyNotePageState extends State<AddDailyNotePage> {
-
   @override
   void initState() {
     super.initState();
@@ -24,7 +23,11 @@ class _AddDailyNotePageState extends State<AddDailyNotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context,"test");
+        }, icon: const Icon(Icons.arrow_back)),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -45,16 +48,20 @@ class _AddDailyNotePageState extends State<AddDailyNotePage> {
                 shrinkWrap: true,
                 physics: const ScrollPhysics()),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              alignment: Alignment.center,
-              child: const Text(
-                Strings.textButtonSaveDaily,
-                style: TextStyle(color: Colors.white),
-              ),
+              margin: const EdgeInsets.only(top: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context,"test");
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      Strings.textButtonSaveDaily,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )),
             )
           ],
         ),

@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: HomePage(),
       routes:{
-        Strings.screenHome: (context) => const HomePage(),
+        Strings.screenHome: (context) => HomePage(),
         Strings.screenAdd: (context) => const AddDailyNotePage(),
         Strings.screenEdit: (context) => const EditDailyNotePage(),
       },
