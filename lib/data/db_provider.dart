@@ -5,10 +5,15 @@ class DbProvider {
   static const _databaseName = "daily-money.db";
   static const _databaseVersion = 1;
 
+  static const tableDay = 'day';
+
+  static const columnDayId = 'id';
+  static const columnDay = 'day';
+
   static const tableDaily = 'daily';
 
-  static const columnId = 'id';
-  static const columnDay = 'day';
+  static const columnDailyId = 'id';
+  static const columnIdDay = 'id_day';
   static const columnAmount = 'amount';
   static const columnMoney = 'money';
 
@@ -31,9 +36,13 @@ class DbProvider {
   }
 
   Future _onCreate(Database db, int version) async {
+    await db.execute("CREATE TABLE $tableDay("
+        "$columnDayId INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "$columnDay TEXT)");
+
     await db.execute("CREATE TABLE $tableDaily("
-        "$columnId INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "$columnDay TEXT, "
+        "$columnDailyId INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "$columnIdDay INTEGER, "
         "$columnAmount TEXT, "
         "$columnMoney INTEGER"
         ")");

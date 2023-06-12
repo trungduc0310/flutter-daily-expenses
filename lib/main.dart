@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
       routes:{
         Strings.screenHome: (context) => HomePage(),
-        Strings.screenAdd: (context) => const AddDailyNotePage(),
+        Strings.screenAdd: (context) => AddDailyNotePage(),
         Strings.screenEdit: (context) => const EditDailyNotePage(),
       },
     );

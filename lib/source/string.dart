@@ -21,5 +21,8 @@ class Strings {
   static const String textHintContentMoney = "Khoản tiền";
   static const String textHintValueMoney = "Số tiền";
 
+  static const String textErrorAmountEmpty = "Khoản tiền không dược để trống";
+  static const String textErrorMoneyEmpty = "Số tiền không dược để trống";
+
 
 }

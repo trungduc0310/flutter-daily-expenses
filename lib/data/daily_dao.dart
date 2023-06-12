@@ -3,29 +3,56 @@ import 'package:my_todo_app/data/db_provider.dart';
 class DailyDao {
   final dailyProvider = DbProvider.dbProvider;
 
-  Future<List<Map<String, dynamic>>> queryAllRows() async {
+  Future<List<Map<String, dynamic>>> queryAllDay() async {
     final dailyDb = await dailyProvider.database;
-    return dailyDb.query(DbProvider.tableDaily);
+    return dailyDb.query(DbProvider.tableDay);
   }
 
-  Future<int> insertReport(Map<String, dynamic> values) async {
+  Future<int> insertDay(Map<String, dynamic> values) async {
+    final dailyDb = await dailyProvider.database;
+    return await dailyDb.insert(DbProvider.tableDay, values);
+  }
+
+  Future<int> updateDay(int id, Map<String, dynamic> values) async {
+    final dailyDb = await dailyProvider.database;
+    return await dailyDb.update(DbProvider.tableDay, values,
+        where: '${DbProvider.columnDayId} = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteDay(int id) async {
+    final dailyDb = await dailyProvider.database;
+    return await dailyDb.delete(DbProvider.tableDay,
+        where: '${DbProvider.columnDayId} = ?', whereArgs: [id]);
+  }
+
+  Future<void> deleteAllDay() async {
+    final dailyDb = await dailyProvider.database;
+    return await dailyDb.execute('DELETE FROM ${DbProvider.tableDay}');
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllDailyInDay(int idDay) async {
+    final dailyDb = await dailyProvider.database;
+    return dailyDb.query(DbProvider.tableDaily, where: '${DbProvider.columnDailyId} = ?', whereArgs: [idDay]);
+  }
+
+  Future<int> insertDaily(Map<String, dynamic> values) async {
     final dailyDb = await dailyProvider.database;
     return await dailyDb.insert(DbProvider.tableDaily, values);
   }
 
-  Future<int> updateReport(int id, Map<String, dynamic> values) async {
+  Future<int> updateDaily(int id, Map<String, dynamic> values) async {
     final dailyDb = await dailyProvider.database;
     return await dailyDb.update(DbProvider.tableDaily, values,
-        where: '${DbProvider.columnId} = ?', whereArgs: [id]);
+        where: '${DbProvider.columnDailyId} = ?', whereArgs: [id]);
   }
 
-  Future<int> deleteReport(int id) async {
+  Future<int> deleteDaily(int id) async {
     final dailyDb = await dailyProvider.database;
     return await dailyDb.delete(DbProvider.tableDaily,
-        where: '${DbProvider.columnId} = ?', whereArgs: [id]);
+        where: '${DbProvider.columnDailyId} = ?', whereArgs: [id]);
   }
 
-  Future<void> deleteAllReport() async {
+  Future<void> deleteAllDaily() async {
     final dailyDb = await dailyProvider.database;
     return await dailyDb.execute('DELETE FROM ${DbProvider.tableDaily}');
   }

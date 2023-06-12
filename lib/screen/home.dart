@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    widget._bloc.fetchAllDaily();
   }
 
   @override
@@ -26,48 +27,66 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
           PopupMenuButton(
-              itemBuilder: (BuildContext context) => [
-                    PopupMenuItem(
-                      child: const Text(Strings.menuItemStatistics),
-                      onTap: () {
-                        //TODO: Navigate Thống kê
-                      },
-                    ),
-                    PopupMenuItem(
-                      child: const Text(Strings.menuItemClear),
-                      onTap: () {
-                        //TODO: Navigate Dọn dẹp
-                      },
-                    ),
-                    PopupMenuItem(
-                      child: const Text(Strings.menuItemAdvanceMoney),
-                      onTap: () {
-                        //TODO: Navigate Ứng tiền hàng ngày
-                      },
-                    ),
-                  ])
+              itemBuilder: (BuildContext context) =>
+              [
+                PopupMenuItem(
+                  child: const Text(Strings.menuItemStatistics),
+                  onTap: () {
+                    //TODO: Navigate Thống kê
+                  },
+                ),
+                PopupMenuItem(
+                  child: const Text(Strings.menuItemClear),
+                  onTap: () {
+                    //TODO: Navigate Dọn dẹp
+                  },
+                ),
+                PopupMenuItem(
+                  child: const Text(Strings.menuItemAdvanceMoney),
+                  onTap: () {
+                    //TODO: Navigate Ứng tiền hàng ngày
+                  },
+                ),
+              ])
         ],
       ),
       body: Center(
-        child: ListView.builder(itemBuilder: (BuildContext context, int index){
-          return ItemDailyHome(onEditItem: _onItemEdit);
-        },itemCount: 10,),
+        child: StreamBuilder(
+          stream: widget._bloc.dailyController.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Text("Error");
+            }
+            if (snapshot.hasData && snapshot.data != null) {
+              if (snapshot.data!.isNotEmpty) {
+                var listDataResponse = snapshot.data!;
+                return ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    var dataResponse = listDataResponse[index];
+                    return ItemDailyHome(onEditItem: _onItemEdit, dailyResponse: dataResponse,);
+                  },
+                  itemCount: snapshot.data!.length,
+                );
+              }else{
+                return const Text("Empty");
+              }
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, Strings.screenAdd).then((value){
-          });
-        },
-        child: const Icon(Icons.add)
-      ),
+          onPressed: () {
+            Navigator.pushNamed(context, Strings.screenAdd).then((value) {});
+          },
+          child: const Icon(Icons.add)),
     );
   }
 
-  void _onItemEdit(){
+  void _onItemEdit() {
     Navigator.pushNamed(context, Strings.screenEdit).then((value) {
       print("edit sc back to homepage $value");
     });
   }
 }
-
-

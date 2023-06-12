@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../entity/daily_reponse.dart';
+import '../model/daily_report.dart';
+
 class ItemDailyHome extends StatelessWidget {
   final Function onEditItem;
+  final DailyResponse dailyResponse;
 
-  const ItemDailyHome({super.key, required this.onEditItem});
+  const ItemDailyHome(
+      {super.key, required this.onEditItem, required this.dailyResponse});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +21,9 @@ class ItemDailyHome extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Ngày: dd/MM/yyyy",
-                  style: TextStyle(
+                Text(
+                  "Ngày: ${dailyResponse.dayReport?.day}",
+                  style: const TextStyle(
                       fontStyle: FontStyle.italic,
                       color: Colors.black,
                       fontSize: 16),
@@ -36,9 +41,9 @@ class ItemDailyHome extends StatelessWidget {
           ),
           ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return const ItemMoneyOnDay();
+              return ItemMoneyOnDay(dailyReport: dailyResponse.dailyReport![index],);
             },
-            itemCount: 5,
+            itemCount: dailyResponse.dailyReport?.length ?? 0,
             shrinkWrap: true,
             physics: const ScrollPhysics(),
           ),
@@ -72,7 +77,9 @@ class ItemDailyHome extends StatelessWidget {
 }
 
 class ItemMoneyOnDay extends StatelessWidget {
-  const ItemMoneyOnDay({super.key});
+  const ItemMoneyOnDay({super.key, required this.dailyReport});
+
+  final DailyReport dailyReport;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +87,7 @@ class ItemMoneyOnDay extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text("Khoản tiền"), Text("Số tiền K")],
+        children: [Text(dailyReport.amount), Text("${dailyReport.money}K")],
       ),
     );
   }

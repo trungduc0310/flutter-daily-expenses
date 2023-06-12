@@ -2,23 +2,23 @@ import 'package:my_todo_app/data/db_provider.dart';
 
 class DailyReport {
   int id = 0;
-  String day;
+  int dayId = 0;
   String amount;
   int money;
 
-  DailyReport(this.id, this.day, this.amount, this.money);
+  DailyReport(this.id, this.dayId, this.amount, this.money);
 
-  DailyReport.withoutId(this.day, this.amount, this.money);
+  DailyReport.withoutId(this.amount, this.money);
 
   Map<String, dynamic> toMap() => {
-        DbProvider.columnDay: day,
+        DbProvider.columnIdDay: dayId,
         DbProvider.columnAmount: amount,
         DbProvider.columnMoney: money
       };
 
   static DailyReport fromMap(Map<String, dynamic> mapResponse){
-    var idResponse = mapResponse[DbProvider.columnId];
-    var dayResponse = mapResponse[DbProvider.columnDay];
+    var idResponse = mapResponse[DbProvider.columnDailyId];
+    var dayResponse = mapResponse[DbProvider.columnIdDay];
     var amountResponse = mapResponse[DbProvider.columnAmount];
     var moneyResponse = mapResponse[DbProvider.columnMoney];
     return DailyReport(idResponse, dayResponse, amountResponse, moneyResponse);
