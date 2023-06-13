@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:my_todo_app/source/string.dart';
 
 class CalendarUtils {
   static Future<void> showDatePickerCallback(
-      BuildContext context, Function(DateTime) onSelectedDate, [DateTime? initDate]) async {
+      BuildContext context, Function(DateTime) onSelectedDate,
+    {DateTime? initDate}) async {
     var datePicked = await showDatePicker(
       context: context,
       initialDate: initDate ?? DateTime.now(),
@@ -11,5 +14,9 @@ class CalendarUtils {
       initialEntryMode: DatePickerEntryMode.calendarOnly,
     );
     onSelectedDate.call(datePicked ?? DateTime.now());
+  }
+
+  static String formatSelectDate(DateTime date) {
+    return DateFormat(Strings.patternFormatDate).format(date);
   }
 }

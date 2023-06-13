@@ -1,4 +1,7 @@
 class Strings {
+
+  Strings._();
+
   static const String appName = "Daily Note";
 
   //ScreenNavigate
@@ -20,6 +23,20 @@ class Strings {
   //Common
   static const String textHintContentMoney = "Khoản tiền";
   static const String textHintValueMoney = "Số tiền";
+  static const String textTitleDay = "Ngày:";
+  static const String patternFormatDate = "dd/MM/yyyy";
+  static const String textTitleConfirmSaveReport = "Xác nhận lưu";
+  static const String textContentConfirmSaveReport = "Bạn có muốn lưu lại ngày %s với %i khoản chi?";
+  static const String textAccept = "Đồng ý";
+  static const String textCancel = "Huỷ";
+
+
+  //Error
+  static const String textErrorEmptyAmount = "Nội dung không được để trống";
+  static const String textErrorEmptyMoney = "Số tiền không được để trống";
+  static const String textErrorDuplicateDay = "Ngày %s đã tồn tại";
+
+
 
   static const String textErrorAmountEmpty = "Khoản tiền không dược để trống";
   static const String textErrorMoneyEmpty = "Số tiền không dược để trống";

@@ -32,7 +32,7 @@ class DailyDao {
 
   Future<List<Map<String, dynamic>>> queryAllDailyInDay(int idDay) async {
     final dailyDb = await dailyProvider.database;
-    return dailyDb.query(DbProvider.tableDaily, where: '${DbProvider.columnDailyId} = ?', whereArgs: [idDay]);
+    return dailyDb.query(DbProvider.tableDaily, where: '${DbProvider.columnIdDay} = ?', whereArgs: [idDay]);
   }
 
   Future<int> insertDaily(Map<String, dynamic> values) async {

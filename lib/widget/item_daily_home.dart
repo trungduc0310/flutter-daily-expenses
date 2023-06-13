@@ -54,16 +54,16 @@ class ItemDailyHome extends StatelessWidget {
             endIndent: 24,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Tổng tiền",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                Text("Tổng số tiền K",
-                    style: TextStyle(
+                Text("${dailyResponse.getTotalMoney()}K",
+                    style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.redAccent))

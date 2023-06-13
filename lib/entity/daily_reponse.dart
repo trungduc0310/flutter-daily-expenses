@@ -6,4 +6,12 @@ class DailyResponse {
   List<DailyReport>? dailyReport;
 
   DailyResponse([this.dayReport, this.dailyReport]);
+
+  int getTotalMoney() {
+    int total = 0;
+    dailyReport?.forEach((daily) {
+      total += daily.money;
+    });
+    return total;
+  }
 }

@@ -38,7 +38,8 @@ class DbProvider {
   Future _onCreate(Database db, int version) async {
     await db.execute("CREATE TABLE $tableDay("
         "$columnDayId INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "$columnDay TEXT)");
+        "$columnDay TEXT,"
+        "UNIQUE ($columnDay))");
 
     await db.execute("CREATE TABLE $tableDaily("
         "$columnDailyId INTEGER PRIMARY KEY AUTOINCREMENT, "

@@ -1,67 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:my_todo_app/source/string.dart';
 
-import '../bloc/add_daily_bloc.dart';
-import '../entity/state_daily_add_item.dart';
+import '../model/daily_report.dart';
 
 class ItemAddDaily extends StatelessWidget {
-  ItemAddDaily({super.key, required this.addDailyBloc, required this.item});
+  const ItemAddDaily({super.key, required this.position, required this.data, required this.onEditItem, required this.onDeleteItem});
 
-  final AddDailyBloc addDailyBloc;
-  final ItemDailyStateAdd item;
-  final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _moneyController = TextEditingController();
+  final Function(int) onEditItem;
+  final Function(int) onDeleteItem;
+  final int position;
+  final DailyReport data;
 
   @override
   Widget build(BuildContext context) {
-    _amountController.text = item.amount ?? "";
-    if (item.money == null) {
-      _moneyController.text = "";
-    } else {
-      _moneyController.text = item.money.toString();
-    }
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 6),
-              child: TextField(
-                controller: _amountController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: Strings.textHintContentMoney),
-                textInputAction: TextInputAction.next,
+    return InkWell(
+      onTap: () {
+        onEditItem(position);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 6),
+                child: Text(data.amount, style: const TextStyle(fontSize: 16)),),
               ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 6),
-              child: TextField(
-                  controller: _moneyController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: Strings.textHintValueMoney),
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.done),
-            ),
-          ),
-          Visibility(
-            visible: item.visibleAdd,
-            child: IconButton(
-                onPressed: () {
-                  addDailyBloc.addNewItemAddDaily();
-                },
-                icon: const Icon(
-                  Icons.add_circle,
-                  size: 36,
-                  color: Colors.green,
+            Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6),
+                  child: Text("${data.money}K", style: const TextStyle(fontSize: 16)),
                 )),
-          )
-        ],
+            IconButton(onPressed: (){
+              onDeleteItem(position);
+            }, icon: const Icon(Icons.remove_circle, color: Colors.redAccent,))
+          ],
+        ),
       ),
     );
   }

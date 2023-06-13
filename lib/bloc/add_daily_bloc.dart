@@ -1,23 +1,84 @@
 import 'dart:async';
 
-import '../entity/state_daily_add_item.dart';
+import 'package:my_todo_app/source/string.dart';
+import 'package:my_todo_app/utils/calendar_utils.dart';
+import 'package:sprintf/sprintf.dart';
+
+import '../model/daily_report.dart';
 import '../repository/daily_report_repository.dart';
 
 class AddDailyBloc {
   final _dailyRepository = DailyReportRepositoryImp.newInstance();
-  final stateAddDaily = StreamController<List<ItemDailyStateAdd>>();
 
-  final _listStateAddItem = <ItemDailyStateAdd>[];
+  bool isAddItem = true;
+  DateTime dateSelected = DateTime.now();
+  int editItemSelected = -1;
 
-  AddDailyBloc() {
-    _listStateAddItem.add(ItemDailyStateAdd());
-    stateAddDaily.add(_listStateAddItem);
+  final listItemController = StreamController<List<DailyReport>>();
+  final addItemController = StreamController<List<DailyReport>>();
+  final saveItemController = StreamController();
+
+  final _listItem = <DailyReport>[];
+
+  Future<bool> addItemDaily(String amount, String money) async {
+    if (validateInput(amount, money)) {
+      var report = DailyReport.withoutId(amount, int.parse(money));
+      _listItem.add(report);
+      listItemController.add(_listItem);
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  addNewItemAddDaily() {
-    _listStateAddItem.add(ItemDailyStateAdd());
-    var lastItemIndex = _listStateAddItem.length - 2;
-    _listStateAddItem[lastItemIndex].visibleAdd = false;
-    stateAddDaily.add(_listStateAddItem);
+  Future<bool> editItemDaily(String amount, String money) async {
+    if (validateInput(amount, money)) {
+      var report = DailyReport.withoutId(amount, int.parse(money));
+      _listItem[editItemSelected] = report;
+      listItemController.add(_listItem);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  deleteItemDaily(int position) async {
+    _listItem.removeAt(position);
+    listItemController.add(_listItem);
+  }
+
+  bool validateInput(String amount, String money) {
+    if (amount.isEmpty) {
+      addItemController.addError(Strings.textErrorEmptyAmount);
+      return false;
+    }
+    if (money.isEmpty) {
+      addItemController.addError(Strings.textErrorEmptyMoney);
+      return false;
+    }
+    try {
+      int.parse(money);
+    } catch (e) {
+      addItemController.addError(e.toString());
+      return false;
+    }
+    return true;
+  }
+
+  bool checkDataEmpty() => _listItem.isEmpty;
+
+  int getCountItem() => _listItem.length;
+
+  Future<DailyReport> getItemSelectedByPosition() async {
+    return _listItem[editItemSelected];
+  }
+
+  addDailyReport() async {
+    var day = CalendarUtils.formatSelectDate(dateSelected);
+    await _dailyRepository.insertDailyReport(day, _listItem).then((value) {
+      saveItemController.add(value);
+    }, onError: (error) {
+      saveItemController.addError(sprintf(Strings.textErrorDuplicateDay, [day]));
+    });
   }
 }

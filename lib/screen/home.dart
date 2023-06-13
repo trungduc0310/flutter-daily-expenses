@@ -78,7 +78,11 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, Strings.screenAdd).then((value) {});
+            Navigator.pushNamed(context, Strings.screenAdd).then((value) {
+              if(value == "reload"){
+                widget._bloc.fetchAllDaily();
+              }
+            });
           },
           child: const Icon(Icons.add)),
     );

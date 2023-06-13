@@ -47,6 +47,9 @@ dependencies:
   #rxdart
   rxdart: ^0.27.7
 
+  #sprintf
+  sprintf: ^7.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
