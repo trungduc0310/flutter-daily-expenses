@@ -9,6 +9,7 @@ class DbProvider {
 
   static const columnDayId = 'id';
   static const columnDay = 'day';
+  static const columnTimestamp = 'time_stamp';
 
   static const tableDaily = 'daily';
 
@@ -39,6 +40,7 @@ class DbProvider {
     await db.execute("CREATE TABLE $tableDay("
         "$columnDayId INTEGER PRIMARY KEY AUTOINCREMENT, "
         "$columnDay TEXT,"
+        "$columnTimestamp DOUBLE,"
         "UNIQUE ($columnDay))");
 
     await db.execute("CREATE TABLE $tableDaily("

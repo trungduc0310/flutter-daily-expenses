@@ -75,10 +75,13 @@ class AddDailyBloc {
 
   addDailyReport() async {
     var day = CalendarUtils.formatSelectDate(dateSelected);
-    await _dailyRepository.insertDailyReport(day, _listItem).then((value) {
+    var timestamp = dateSelected.millisecondsSinceEpoch.toDouble();
+    await _dailyRepository.insertDailyReport(day, timestamp, _listItem).then(
+        (value) {
       saveItemController.add(value);
     }, onError: (error) {
-      saveItemController.addError(sprintf(Strings.textErrorDuplicateDay, [day]));
+      saveItemController
+          .addError(sprintf(Strings.textErrorDuplicateDay, [day]));
     });
   }
 }

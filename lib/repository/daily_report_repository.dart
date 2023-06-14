@@ -9,7 +9,7 @@ abstract class DailyReportRepository {
 
   Future<List<DailyReport>> getAllDailyReports(int dayId);
 
-  Future<int> insertDailyReport(String day, List<DailyReport> dailyReport);
+  Future<int> insertDailyReport(String day,double timestamp, List<DailyReport> dailyReport);
 
   Future<int> insertDaily(int idDay, DailyReport dailyReport);
 
@@ -66,8 +66,8 @@ class DailyReportRepositoryImp extends DailyReportRepository {
   }
 
   @override
-  Future<int> insertDailyReport(String day, List<DailyReport> dailyReport) async {
-    var idDay = await _dailyDao.insertDay(DayReport.withoutId(day).toMap());
+  Future<int> insertDailyReport(String day, double timestamp, List<DailyReport> dailyReport) async {
+    var idDay = await _dailyDao.insertDay(DayReport.withoutId(day, timestamp).toMap());
     for (var daily in dailyReport) {
       daily.dayId = idDay;
       await _dailyDao.insertDaily(daily.toMap());

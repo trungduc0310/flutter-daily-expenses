@@ -6,10 +6,13 @@ class DailyDao {
   Future<List<Map<String, dynamic>>> queryAllDay([int? dayId]) async {
     final dailyDb = await dailyProvider.database;
     if (dayId == null) {
-      return dailyDb.query(DbProvider.tableDay);
+      return dailyDb.query(DbProvider.tableDay,
+          orderBy: '${DbProvider.columnTimestamp} desc');
     } else {
       return dailyDb.query(DbProvider.tableDay,
-          where: '${DbProvider.columnDayId} = ?', whereArgs: [dayId]);
+          where: '${DbProvider.columnDayId} = ?',
+          whereArgs: [dayId],
+          orderBy: '${DbProvider.columnTimestamp} desc');
     }
   }
 
@@ -37,7 +40,8 @@ class DailyDao {
 
   Future<List<Map<String, dynamic>>> queryAllDailyInDay(int idDay) async {
     final dailyDb = await dailyProvider.database;
-    return dailyDb.query(DbProvider.tableDaily, where: '${DbProvider.columnIdDay} = ?', whereArgs: [idDay]);
+    return dailyDb.query(DbProvider.tableDaily,
+        where: '${DbProvider.columnIdDay} = ?', whereArgs: [idDay]);
   }
 
   Future<int> insertDaily(Map<String, dynamic> values) async {
@@ -61,5 +65,4 @@ class DailyDao {
     final dailyDb = await dailyProvider.database;
     return await dailyDb.execute('DELETE FROM ${DbProvider.tableDaily}');
   }
-
 }

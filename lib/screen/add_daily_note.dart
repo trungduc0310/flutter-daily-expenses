@@ -84,6 +84,9 @@ class _AddDailyNotePageState extends State<AddDailyNotePage> {
                           decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: Strings.textHintValueMoney),
+                          onSubmitted: (value){
+                            _onAddItemClick();
+                          },
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.done),
                     ),
