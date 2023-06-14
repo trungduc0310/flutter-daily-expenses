@@ -12,65 +12,62 @@ class ItemDailyHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Ngày: ${dailyResponse.dayReport?.day}",
-                  style: const TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.black,
-                      fontSize: 16),
-                ),
-                IconButton(
-                    onPressed: () {
-                      onEditItem();
-                    },
-                    icon: const Icon(
-                      Icons.edit,
-                      size: 24,
-                    ))
-              ],
-            ),
-          ),
-          ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return ItemMoneyOnDay(dailyReport: dailyResponse.dailyReport![index],);
-            },
-            itemCount: dailyResponse.dailyReport?.length ?? 0,
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-          ),
-          const Divider(
-            height: 2,
-            color: Colors.blueGrey,
-            indent: 24,
-            endIndent: 24,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Tổng tiền",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Text("${dailyResponse.getTotalMoney()}K",
+    return InkWell(
+      onTap: (){
+        onEditItem(dailyResponse.dayReport?.id);
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Ngày: ${dailyResponse.dayReport?.day}",
                     style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.redAccent))
-              ],
+                        fontStyle: FontStyle.italic,
+                        color: Colors.black,
+                        fontSize: 18),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
+            ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return ItemMoneyOnDay(dailyReport: dailyResponse.dailyReport![index],);
+              },
+              itemCount: dailyResponse.dailyReport?.length ?? 0,
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+            ),
+            const Divider(
+              height: 2,
+              color: Colors.blueGrey,
+              indent: 24,
+              endIndent: 24,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Tổng tiền",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text("${dailyResponse.getTotalMoney()}K",
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent))
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -3,9 +3,14 @@ import 'package:my_todo_app/data/db_provider.dart';
 class DailyDao {
   final dailyProvider = DbProvider.dbProvider;
 
-  Future<List<Map<String, dynamic>>> queryAllDay() async {
+  Future<List<Map<String, dynamic>>> queryAllDay([int? dayId]) async {
     final dailyDb = await dailyProvider.database;
-    return dailyDb.query(DbProvider.tableDay);
+    if (dayId == null) {
+      return dailyDb.query(DbProvider.tableDay);
+    } else {
+      return dailyDb.query(DbProvider.tableDay,
+          where: '${DbProvider.columnDayId} = ?', whereArgs: [dayId]);
+    }
   }
 
   Future<int> insertDay(Map<String, dynamic> values) async {

@@ -19,6 +19,7 @@ class Strings {
 
   //Edit daily screen
   static const String textButtonSaveEditDaily = "Lưu";
+  static const String textButtonAddDailyReport = "Thêm khoản tiền";
 
   //Common
   static const String textHintContentMoney = "Khoản tiền";
@@ -26,15 +27,21 @@ class Strings {
   static const String textTitleDay = "Ngày:";
   static const String patternFormatDate = "dd/MM/yyyy";
   static const String textTitleConfirmSaveReport = "Xác nhận lưu";
+  static const String textTitleConfirmDeleteReport = "Xác nhận xoá";
   static const String textContentConfirmSaveReport = "Bạn có muốn lưu lại ngày %s với %i khoản chi?";
+  static const String textContentConfirmDeleteReport = "Bạn chắc chắn muốn xoá ngày %s?";
   static const String textAccept = "Đồng ý";
   static const String textCancel = "Huỷ";
+  static const String textEdit = "Sửa";
+  static const String textDelete = "Xoá";
+
 
 
   //Error
   static const String textErrorEmptyAmount = "Nội dung không được để trống";
   static const String textErrorEmptyMoney = "Số tiền không được để trống";
   static const String textErrorDuplicateDay = "Ngày %s đã tồn tại";
+  static const String textErrorValidateMoney = "Số tiền đã nhập không hợp lệ";
 
 
 

@@ -5,6 +5,8 @@ import 'package:my_todo_app/bloc/home_bloc.dart';
 import 'package:my_todo_app/source/string.dart';
 import 'package:my_todo_app/widget/item_daily_home.dart';
 
+import 'edit_daily_note.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({super.key});
 
@@ -88,9 +90,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _onItemEdit() {
-    Navigator.pushNamed(context, Strings.screenEdit).then((value) {
-      print("edit sc back to homepage $value");
+  void _onItemEdit(int idDay) {
+    Navigator.pushNamed(context, Strings.screenEdit,
+            arguments: EditDailyArgument(idDay))
+        .then((value) {
+      widget._bloc.fetchAllDaily();
     });
   }
 }

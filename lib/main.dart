@@ -20,10 +20,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: HomePage(),
-      routes:{
+      onGenerateRoute: (setting) {
+        if (setting.name == Strings.screenEdit) {
+          final args = setting.arguments as EditDailyArgument;
+          return MaterialPageRoute(builder: (context){
+            return EditDailyNotePage(idDay: args.idDay);
+          });
+        }
+        return null;
+      },
+      routes: {
         Strings.screenHome: (context) => HomePage(),
         Strings.screenAdd: (context) => AddDailyNotePage(),
-        Strings.screenEdit: (context) => const EditDailyNotePage(),
       },
     );
   }

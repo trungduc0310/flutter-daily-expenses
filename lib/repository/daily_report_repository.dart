@@ -11,9 +11,17 @@ abstract class DailyReportRepository {
 
   Future<int> insertDailyReport(String day, List<DailyReport> dailyReport);
 
+  Future<int> insertDaily(int idDay, DailyReport dailyReport);
+
+  Future<int> editDaily(DailyReport dailyReport);
+
+  deleteDaily(int idDaily);
+
   Future<void> deleteDailyReport(int idDay);
 
   Future<void> deleteAllDailyReport();
+
+  Future<DayReport> getDayById(int idDay);
 }
 
 class DailyReportRepositoryImp extends DailyReportRepository {
@@ -72,4 +80,28 @@ class DailyReportRepositoryImp extends DailyReportRepository {
     var listDaily = await _dailyDao.queryAllDailyInDay(dayId);
     return List.generate(listDaily.length, (index) => DailyReport.fromMap(listDaily[index]));
   }
+
+  @override
+  Future<int> insertDaily(int idDay, DailyReport dailyReport) async {
+    dailyReport.dayId = idDay;
+    return await _dailyDao.insertDaily(dailyReport.toMap());
+  }
+
+  @override
+  Future<int> editDaily(DailyReport dailyReport) async {
+    return await _dailyDao.updateDaily(dailyReport.id,dailyReport.toMap());
+  }
+
+  @override
+  deleteDaily(int idDaily) async {
+    await _dailyDao.deleteDaily(idDaily);
+  }
+
+  @override
+  Future<DayReport> getDayById(int idDay) async {
+    var listDay = await _dailyDao.queryAllDay(idDay);
+    var dayResponse = List.generate(listDay.length, (index) => DayReport.fromMap(listDay[index])).first;
+    return dayResponse;
+  }
+
 }

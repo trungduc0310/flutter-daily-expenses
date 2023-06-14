@@ -21,7 +21,7 @@ class AddDailyBloc {
   final _listItem = <DailyReport>[];
 
   Future<bool> addItemDaily(String amount, String money) async {
-    if (validateInput(amount, money)) {
+    if (_validateInput(amount, money)) {
       var report = DailyReport.withoutId(amount, int.parse(money));
       _listItem.add(report);
       listItemController.add(_listItem);
@@ -32,7 +32,7 @@ class AddDailyBloc {
   }
 
   Future<bool> editItemDaily(String amount, String money) async {
-    if (validateInput(amount, money)) {
+    if (_validateInput(amount, money)) {
       var report = DailyReport.withoutId(amount, int.parse(money));
       _listItem[editItemSelected] = report;
       listItemController.add(_listItem);
@@ -47,7 +47,7 @@ class AddDailyBloc {
     listItemController.add(_listItem);
   }
 
-  bool validateInput(String amount, String money) {
+  bool _validateInput(String amount, String money) {
     if (amount.isEmpty) {
       addItemController.addError(Strings.textErrorEmptyAmount);
       return false;
