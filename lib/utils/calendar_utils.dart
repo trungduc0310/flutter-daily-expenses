@@ -19,4 +19,10 @@ class CalendarUtils {
   static String formatSelectDate(DateTime date) {
     return DateFormat(Strings.patternFormatDate).format(date);
   }
+
+  static double getTimestampBefore(int numberOfDay){
+    var now = DateTime.now();
+    var expectTime = DateTime(now.year, now.month, now.day - numberOfDay);
+    return expectTime.millisecondsSinceEpoch.toDouble();
+  }
 }

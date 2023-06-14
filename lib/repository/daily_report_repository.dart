@@ -1,11 +1,14 @@
 import 'package:my_todo_app/entity/daily_reponse.dart';
 import 'package:my_todo_app/model/daily_report.dart';
 import 'package:my_todo_app/model/day_report.dart';
+import 'package:my_todo_app/utils/calendar_utils.dart';
 
 import '../data/daily_dao.dart';
 
 abstract class DailyReportRepository {
   Future<List<DailyResponse>> getListDaily();
+
+  Future<List<DailyResponse>> getListRangeDaily(int previousDays);
 
   Future<List<DailyReport>> getAllDailyReports(int dayId);
 
@@ -102,6 +105,25 @@ class DailyReportRepositoryImp extends DailyReportRepository {
     var listDay = await _dailyDao.queryAllDay(idDay);
     var dayResponse = List.generate(listDay.length, (index) => DayReport.fromMap(listDay[index])).first;
     return dayResponse;
+  }
+
+  @override
+  Future<List<DailyResponse>> getListRangeDaily(int previousDays) async {
+    var timeStampBefore = CalendarUtils.getTimestampBefore(previousDays);
+    var timeStampAfter = DateTime.now().millisecondsSinceEpoch.toDouble();
+    var listDailyResponse = <DailyResponse>[];
+    var listDay = await _dailyDao.queryAllDayRange(timeStampBefore, timeStampAfter);
+    var listDaily = List.generate(
+        listDay.length, (index) => DayReport.fromMap(listDay[index]));
+    for (var day in listDaily) {
+      var dayReport = DailyResponse();
+      dayReport.dayReport = day;
+      var listDaily = await _dailyDao.queryAllDailyInDay(day.id);
+      dayReport.dailyReport = List.generate(
+          listDaily.length, (index) => DailyReport.fromMap(listDaily[index]));
+      listDailyResponse.add(dayReport);
+    }
+    return listDailyResponse;
   }
 
 }

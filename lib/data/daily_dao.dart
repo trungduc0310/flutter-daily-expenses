@@ -16,6 +16,15 @@ class DailyDao {
     }
   }
 
+  Future<List<Map<String, dynamic>>> queryAllDayRange(
+      double timeStampBefore, double timeStampAfter) async {
+    final dailyDb = await dailyProvider.database;
+    return dailyDb.query(DbProvider.tableDay,
+        where:
+            '${DbProvider.columnTimestamp} >= ? AND ${DbProvider.columnTimestamp} <= ?',
+        whereArgs: [timeStampBefore, timeStampAfter]);
+  }
+
   Future<int> insertDay(Map<String, dynamic> values) async {
     final dailyDb = await dailyProvider.database;
     return await dailyDb.insert(DbProvider.tableDay, values);
