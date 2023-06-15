@@ -14,4 +14,9 @@ class DailyResponse {
     });
     return total;
   }
+
+  DailyReport getAmountMaxMoney() {
+    return dailyReport!.reduce(
+        (daily1, daily2) => daily1.money > daily2.money ? daily1 : daily2);
+  }
 }

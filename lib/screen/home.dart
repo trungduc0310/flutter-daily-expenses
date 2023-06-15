@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:my_todo_app/bloc/home_bloc.dart';
 import 'package:my_todo_app/source/string.dart';
@@ -29,13 +27,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
           PopupMenuButton(
+            onSelected: (value){
+              Navigator.pushNamed(context, value);
+            },
               itemBuilder: (BuildContext context) =>
               [
-                PopupMenuItem(
-                  child: const Text(Strings.menuItemStatistics),
-                  onTap: () {
-                    //TODO: Navigate Thống kê
-                  },
+                const PopupMenuItem(
+                  value: Strings.screenStatistics,
+                  child: Text(Strings.menuItemStatistics),
                 ),
                 PopupMenuItem(
                   child: const Text(Strings.menuItemClear),

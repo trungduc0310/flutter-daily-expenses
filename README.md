@@ -8,7 +8,7 @@ design/design-app-to-do.drawio
 
 #Note
 Thông tin thống kê:
-Theo tuần/ tháng:
+Theo 7d/ 30d/ 60d/ 180d:
   - số lượng khoản tiền chi tiêu trong tuần
   - tổng số tiền đã chi tiêu
   - khoản tiền nhiều nhất (khoản tiền, số tiền, trong ngày nào)

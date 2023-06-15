@@ -50,6 +50,9 @@ dependencies:
   #sprintf
   sprintf: ^7.0.0
 
+  #chart
+  fl_chart: ^0.55.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
