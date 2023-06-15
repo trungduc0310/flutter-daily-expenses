@@ -3,6 +3,7 @@ import 'package:my_todo_app/source/string.dart';
 import 'package:sprintf/sprintf.dart';
 
 import '../bloc/statistics_bloc.dart';
+import '../widget/demo_chart.dart';
 
 class StatisticsPage extends StatefulWidget {
   StatisticsPage({super.key});
@@ -86,6 +87,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                         TextContentStatistics(content: Strings.textContentOptionTotalMoney, arg: [dataResponse.totalMoney],),
                         TextContentStatistics(content: Strings.textContentOptionMaxMoney,arg: [dataResponse.maxMoneyOnRange],),
                         TextContentStatistics(content: Strings.textContentOptionAverageMoney,arg: [dataResponse.averageMoneyInDay],),
+                        LineChartSample2()
                       ],
                     );
                   }else if(snapshot.hasError){

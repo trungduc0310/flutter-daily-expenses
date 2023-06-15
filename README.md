@@ -15,3 +15,6 @@ Theo 7d/ 30d/ 60d/ 180d:
   - trung bình chi tiêu 1 ngày
   - xem chi tiết
   - implement chart: https://github.com/imaNNeo/fl_chart/blob/master/repo_files/documentations/line_chart.md#sample-1-source-code
+  - cần max value money (max Y), title Y start, max, 
+  - số ngày (max X)
+  - list day -> generate list FlSpot
