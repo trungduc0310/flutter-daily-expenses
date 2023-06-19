@@ -22,7 +22,7 @@ class DailyDao {
     return dailyDb.query(DbProvider.tableDay,
         where:
             '${DbProvider.columnTimestamp} >= ? AND ${DbProvider.columnTimestamp} <= ?',
-        whereArgs: [timeStampBefore, timeStampAfter]);
+        whereArgs: [timeStampBefore, timeStampAfter], orderBy: '${DbProvider.columnTimestamp} asc');
   }
 
   Future<int> insertDay(Map<String, dynamic> values) async {

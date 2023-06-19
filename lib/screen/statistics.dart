@@ -3,7 +3,8 @@ import 'package:my_todo_app/source/string.dart';
 import 'package:sprintf/sprintf.dart';
 
 import '../bloc/statistics_bloc.dart';
-import '../widget/demo_chart.dart';
+import '../widget/daily_chart.dart';
+import 'detail_statistics.dart';
 
 class StatisticsPage extends StatefulWidget {
   StatisticsPage({super.key});
@@ -75,28 +76,66 @@ class _StatisticsPageState extends State<StatisticsPage> {
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(8),
               child: StreamBuilder(
-                stream: widget._bloc.statisticController.stream,
-                builder: (context, snapshot) {
-                  if(snapshot.hasData){
-                    var dataResponse = snapshot.requireData;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(sprintf(Strings.textTitleCountDayStatistics,[dataResponse.previousDay]), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                        TextContentStatistics(content: Strings.textContentOptionCountAmount,arg: [dataResponse.countAmount],),
-                        TextContentStatistics(content: Strings.textContentOptionTotalMoney, arg: [dataResponse.totalMoney],),
-                        TextContentStatistics(content: Strings.textContentOptionMaxMoney,arg: [dataResponse.maxMoneyOnRange],),
-                        TextContentStatistics(content: Strings.textContentOptionAverageMoney,arg: [dataResponse.averageMoneyInDay],),
-                        LineChartSample2()
-                      ],
-                    );
-                  }else if(snapshot.hasError){
-                    return Center(child: Text(snapshot.error.toString()));
-                  }else{
-                    return const CircularProgressIndicator();
-                  }
-                }
-              ),
+                  stream: widget._bloc.statisticController.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var dataResponse = snapshot.requireData;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                sprintf(Strings.textTitleCountDayStatistics,
+                                    [dataResponse.previousDay]),
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, Strings.screenDetailStatistics,
+                                        arguments: DetailStatisticsArgument(
+                                            widget._bloc.previousDay));
+                                  },
+                                  icon: const Icon(
+                                    Icons.keyboard_double_arrow_right_rounded,
+                                    color: Colors.blue,
+                                    size: 24,
+                                  ))
+                            ],
+                          ),
+                          TextContentStatistics(
+                            content: Strings.textContentOptionCountAmount,
+                            arg: [dataResponse.getCountAmount()],
+                          ),
+                          TextContentStatistics(
+                            content: Strings.textContentOptionTotalMoney,
+                            arg: [dataResponse.getTotalMoney()],
+                          ),
+                          TextContentStatistics(
+                            content: Strings.textContentOptionMaxMoney,
+                            arg: [dataResponse.getContentMaxMoney()],
+                          ),
+                          TextContentStatistics(
+                            content: Strings.textContentOptionAverageMoney,
+                            arg: [dataResponse.getAverageMoney()],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 26),
+                            child: LineChartDaily(
+                              daysCalChart: dataResponse,
+                            ),
+                          )
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text(snapshot.error.toString()));
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  }),
             ),
           )
         ],
@@ -105,8 +144,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
   }
 
   void viewStatistic(int index) {
-    int dayPrevious= 0;
-    switch(index){
+    int dayPrevious = 0;
+    switch (index) {
       case 0:
         dayPrevious = 7;
         break;
@@ -114,7 +153,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
         dayPrevious = 30;
         break;
       case 2:
-        dayPrevious =90;
+        dayPrevious = 90;
         break;
       case 3:
         dayPrevious = 180;
@@ -125,11 +164,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
 }
 
 class TextContentStatistics extends StatelessWidget {
-  const TextContentStatistics({
-    super.key,
-    required this.content,
-    this.arg
-  });
+  const TextContentStatistics({super.key, required this.content, this.arg});
 
   final String content;
   final dynamic arg;
@@ -137,7 +172,10 @@ class TextContentStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8,left: 8),
-        child: Text(sprintf(content,arg), style: const TextStyle(fontStyle: FontStyle.italic,fontSize: 16),));
+        padding: const EdgeInsets.only(top: 8, left: 8),
+        child: Text(
+          sprintf(content, arg),
+          style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+        ));
   }
 }

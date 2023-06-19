@@ -9,10 +9,8 @@ class DayReport {
 
   DayReport.withoutId(this.day, this.timestamp);
 
-  Map<String, dynamic> toMap() => {
-        DbProvider.columnDay: day,
-        DbProvider.columnTimestamp: timestamp
-      };
+  Map<String, dynamic> toMap() =>
+      {DbProvider.columnDay: day, DbProvider.columnTimestamp: timestamp};
 
   static DayReport fromMap(Map<String, dynamic> mapResponse) {
     var id = mapResponse[DbProvider.columnDayId];
@@ -20,4 +18,6 @@ class DayReport {
     var timestamp = mapResponse[DbProvider.columnTimestamp];
     return DayReport(id, day, timestamp);
   }
+
+  String getShortDay() => day.substring(0, 5);
 }

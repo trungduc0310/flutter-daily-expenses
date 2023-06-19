@@ -9,6 +9,7 @@ class Strings {
   static const String screenAdd = "add_daily";
   static const String screenEdit = "edit_daily";
   static const String screenStatistics = "statistics";
+  static const String screenDetailStatistics = "detail_statistics";
 
   //Home screen
   static const String menuItemStatistics = "Thống kê";
@@ -23,7 +24,7 @@ class Strings {
   static const String textButtonAddDailyReport = "Thêm khoản tiền";
 
   //Statistics screen
-  static const String textTitleCountDayStatistics = "Thống kê trong %i ngày:";
+  static const String textTitleCountDayStatistics = "Thống kê trong %i ngày";
   static const String textContentOptionCountAmount = "• Số khoản tiền: %i khoản tiền";
   static const String textContentOptionTotalMoney = "• Tổng số tiền đã chi tiêu: %iK";
   static const String textContentOptionMaxMoney = "• Khoản tiền lớn nhất: %s";
