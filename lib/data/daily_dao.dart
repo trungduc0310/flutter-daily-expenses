@@ -17,12 +17,16 @@ class DailyDao {
   }
 
   Future<List<Map<String, dynamic>>> queryAllDayRange(
-      double timeStampBefore, double timeStampAfter) async {
+      double timeStampBefore, double timeStampAfter, bool hasSort) async {
+    String typeSort = "desc";
+    if (hasSort) {
+      typeSort = "asc";
+    }
     final dailyDb = await dailyProvider.database;
     return dailyDb.query(DbProvider.tableDay,
         where:
             '${DbProvider.columnTimestamp} >= ? AND ${DbProvider.columnTimestamp} <= ?',
-        whereArgs: [timeStampBefore, timeStampAfter], orderBy: '${DbProvider.columnTimestamp} asc');
+        whereArgs: [timeStampBefore, timeStampAfter], orderBy: '${DbProvider.columnTimestamp} $typeSort');
   }
 
   Future<int> insertDay(Map<String, dynamic> values) async {

@@ -10,10 +10,10 @@ class StatisticBloc {
 
   int previousDay = 0;
 
-  getStatisticRangeDay([int previousDay = 7]) async {
+  getStatisticRangeDay({int previousDay = 7, bool hasSort = false}) async {
     this.previousDay = previousDay;
     var listDay = await _dailyRepository
-        .getListRangeDaily(previousDay)
+        .getListRangeDaily(previousDay, hasSort)
         .then((response) => StatisticsResponse(previousDay, response));
     if (listDay.isEmpty()) {
       statisticController.addError("Empty");

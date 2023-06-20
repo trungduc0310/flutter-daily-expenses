@@ -21,7 +21,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
   @override
   void initState() {
     super.initState();
-    widget._bloc.getStatisticRangeDay();
+    widget._bloc.getStatisticRangeDay(hasSort: true);
   }
 
   @override
@@ -159,7 +159,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
         dayPrevious = 180;
         break;
     }
-    widget._bloc.getStatisticRangeDay(dayPrevious);
+    widget._bloc.getStatisticRangeDay(previousDay: dayPrevious, hasSort: true);
   }
 }
 

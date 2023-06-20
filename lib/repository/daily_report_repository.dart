@@ -8,7 +8,7 @@ import '../data/daily_dao.dart';
 abstract class DailyReportRepository {
   Future<List<DailyResponse>> getListDaily();
 
-  Future<List<DailyResponse>> getListRangeDaily(int previousDays);
+  Future<List<DailyResponse>> getListRangeDaily(int previousDays, bool hasSort);
 
   Future<List<DailyReport>> getAllDailyReports(int dayId);
 
@@ -108,11 +108,11 @@ class DailyReportRepositoryImp extends DailyReportRepository {
   }
 
   @override
-  Future<List<DailyResponse>> getListRangeDaily(int previousDays) async {
+  Future<List<DailyResponse>> getListRangeDaily(int previousDays, bool hasSort) async {
     var timeStampBefore = CalendarUtils.getTimestampBefore(previousDays);
     var timeStampAfter = DateTime.now().millisecondsSinceEpoch.toDouble();
     var listDailyResponse = <DailyResponse>[];
-    var listDay = await _dailyDao.queryAllDayRange(timeStampBefore, timeStampAfter);
+    var listDay = await _dailyDao.queryAllDayRange(timeStampBefore, timeStampAfter, hasSort);
     var listDaily = List.generate(
         listDay.length, (index) => DayReport.fromMap(listDay[index]));
     for (var day in listDaily) {
