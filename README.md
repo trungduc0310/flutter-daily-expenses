@@ -7,14 +7,16 @@ open with draw.io:
 design/design-app-to-do.drawio
 
 #Note
-Thông tin thống kê:
-Theo 7d/ 30d/ 60d/ 180d:
-  - số lượng khoản tiền chi tiêu trong tuần
-  - tổng số tiền đã chi tiêu
-  - khoản tiền nhiều nhất (khoản tiền, số tiền, trong ngày nào)
-  - trung bình chi tiêu 1 ngày
-  - xem chi tiết
-  - implement chart: https://github.com/imaNNeo/fl_chart/blob/master/repo_files/documentations/line_chart.md#sample-1-source-code
-  - cần max value money (max Y), title Y start, max, 
-  - số ngày (max X)
-  - list day -> generate list FlSpot
+Đồng bộ firestore:
+    -
+Chức năng ứng tiền theo ngày:
+    - Yêu cầu: Ứng tiền hàng ngày cho mọi người, cuối tuần hoặc 1 khoảng thời gian nhất định tổng hợp lại số tiền của từng người ->  đi thu tiền
+    - Home: 
+        + danh sách mọi người -> số tiền tương ứng người đó (chỉ hiển thị những người vẫn còn khoản nợ)
+        + tổng số tiền nợ
+    - Thêm khoản tiền:
+        + chọn ngày 
+        + tên khoản tiền
+        + số tiền
+        + danh sách người tham gia
+        + chọn kiểu chia tiền: chia đều, tùy chọn(người ít, người nhiều)
