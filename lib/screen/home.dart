@@ -42,11 +42,9 @@ class _HomePageState extends State<HomePage> {
                     //TODO: Navigate Dọn dẹp
                   },
                 ),
-                PopupMenuItem(
-                  child: const Text(Strings.menuItemAdvanceMoney),
-                  onTap: () {
-                    //TODO: Navigate Ứng tiền hàng ngày
-                  },
+                const PopupMenuItem(
+                  value: Strings.screenAdvanceMoney,
+                  child: Text(Strings.menuItemAdvanceMoney),
                 ),
               ])
         ],

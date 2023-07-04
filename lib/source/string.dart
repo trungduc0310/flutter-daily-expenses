@@ -10,6 +10,9 @@ class Strings {
   static const String screenEdit = "edit_daily";
   static const String screenStatistics = "statistics";
   static const String screenDetailStatistics = "detail_statistics";
+  static const String screenAdvanceMoney = "advance_money";
+  static const String screenDetailAdvanceMoney = "detail_advance_money";
+  static const String screenAddAdvanceMoney = "add_advance_money";
 
   //Home screen
   static const String menuItemStatistics = "Thống kê";
