@@ -13,6 +13,7 @@ class Strings {
   static const String screenAdvanceMoney = "advance_money";
   static const String screenDetailAdvanceMoney = "detail_advance_money";
   static const String screenAddAdvanceMoney = "add_advance_money";
+  static const String screenListMemberAdvance = "list_member_advance";
 
   //Home screen
   static const String menuItemStatistics = "Thống kê";

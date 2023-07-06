@@ -7,6 +7,7 @@ import 'package:my_todo_app/screen/detail_advance_money.dart';
 import 'package:my_todo_app/screen/detail_statistics.dart';
 import 'package:my_todo_app/screen/edit_daily_note.dart';
 import 'package:my_todo_app/screen/home.dart';
+import 'package:my_todo_app/screen/list_member_advance.dart';
 import 'package:my_todo_app/screen/statistics.dart';
 import 'package:my_todo_app/source/string.dart';
 
@@ -42,6 +43,11 @@ class MyApp extends StatelessWidget {
         if (setting.name == Strings.screenDetailAdvanceMoney) {
           return MaterialPageRoute(builder: (context) {
             return const DetailAdvanceMoneyPage();
+          });
+        }
+        if(setting.name == Strings.screenListMemberAdvance){
+          return MaterialPageRoute(builder: (context){
+            return const ListMemberAdvancePage();
           });
         }
         return null;
